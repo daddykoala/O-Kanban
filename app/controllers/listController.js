@@ -1,15 +1,17 @@
-const res = require("express/lib/response");
+
 const errorHandling = require("../middlewares/errorHandling");
-
 const { List } = require("../models");
-
 const listController = {
+    // je viens récupérer l'intégralité des listes
     async getAllLists(req, res) {
         try {
+            // findAll() est une méthode herité de model, elle permet de récupérer toutes les listes en BDD.
             const allLists = await List.findAll({
+                // je souhaite embarquer les cartes associées à chaque liste
                 include: [
                     {
                         association: "cards",
+                        // je souhaite embarquer les tags associés à chaque carte
                         include: [{
                             association: "tags"
                         }]
@@ -21,9 +23,8 @@ const listController = {
                     // et les cards par position croissante
                     ["cards","position","ASC"]
                 ]
-            });
-
-            // throw "il y a une erreur"; // <-- permet de lever une exception
+            })
+            // je renvoie les listes dans la réponse
             res.json(allLists);
         }
         catch (err) {
@@ -31,23 +32,18 @@ const listController = {
             res.status(500).json({ error: err });
         }
     },
+
     async createList(req, res) {
-        const list = req.body; // je récupère ce qui est envoyé par la requête POST
-        console.log(list);
+// je récupère ce qui est envoyé par la requête POST
+        const list = req.body; 
         try {
             // je vérifie que les données envoyées ont la propriété name
             if (!list.name) {
                 throw "Le nom de la liste doit être précisé";
             }
-
-            // je vérifie que les données envoyées ont la propriété position
-            // if(!list.position){
-            //     throw "La position de la liste doit être précisée";
-            // }
-
             // je calcule la position de la nouvelle liste par rapport aux listes existantes
             const listPosition = await List.count()+1;
-
+//List
             let newList = List.build({
                 name:list.name,position:listPosition
             });

@@ -1,17 +1,30 @@
+//j'importe le module express
 const express = require("express");
+// je crée un router a l'aide la mehtode Router() de express
+const router = express.Router();
+
+// j'importe les controllers
 const cardController = require("./controllers/cardController");
 const tagController = require("./controllers/tagController");
 const listController = require("./controllers/listController");
+
+// j'importe le middleware d'erreur pour les 404
 const errorHandling = require("./middlewares/errorHandling");
 
-const router = express.Router();
 
 /* LISTES */
+// j'associe chaque routes à la methode du controller qui lui correspond
+//getAllLists est la requete qui va chercher toutes les listes a l'ouverture de la page
+//elle retourne un fichier json avec toutes les listes et leurs cartes et tags.
 router.get("/lists",listController.getAllLists);
-router.post("/lists",listController.createList);
 
+//Si un utilisateur clique sur le bouton "ajouter une liste" dans le front, il va envoyer une requete POST
+router.post("/lists",listController.createList);
+//le parametre ":id" est le parametre qui va etre envoye par le front. Il correspond a l'id de la liste
 router.get("/lists/:id",listController.getOneList);
+//Si un utilisateur clique sur le bouton "modifier" dans le front, il va envoyer une requete PATCH
 router.patch("/lists/:id",listController.updateById);
+//Si un utilisateur clique sur le bouton "supprimer" dans le front, il va envoyer une requete DELETE.
 router.delete("/lists/:id",listController.deleteOneList);
 
 /* CARTES */
@@ -21,7 +34,7 @@ router.get('/cards/:id', cardController.getOneCard);
 router.post('/cards', cardController.createCard);
 router.patch('/cards/:id', cardController.modifyCard);
 /**
- * Route pour créer ou modifier une carteo
+ * Route pour créer ou modifier une carte
  */
 router.put('/cards/:id?', cardController.createOrModify);
 router.delete('/cards/:id', cardController.deleteCard);
@@ -39,4 +52,5 @@ router.delete('/cards/:cardId/tags/:tagId', tagController.removeTagFromCard);
 // gestion des 404
 router.use(errorHandling.notFound);
 
+//j'exporte le router que je vais utiliser dans app/index.js
 module.exports = router;
