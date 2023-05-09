@@ -7,12 +7,24 @@ const router = express.Router();
 const cardController = require("./controllers/cardController");
 const tagController = require("./controllers/tagController");
 const listController = require("./controllers/listController");
+const tableController = require("./controllers/tableController");
+const userController = require("./controllers/userController");
 
 // j'importe le middleware d'erreur pour les 404
 const errorHandling = require("./middlewares/errorHandling");
 
+//créer les routes pour créer,supprimer,modifier les utilsateurs
+// pour trouver un utilisateur, on va utiliser son id
+router.get("/users/:id",userController.getOneUser);
+router.get("/users",userController.getAllUsers);
+router.post("/users",userController.createUser);
+router.patch("/users/:id",userController.modifyUser);
 
-/* LISTES */
+
+//créer les routes poyur recuperer ,supprimir et midifier les tables
+router.get("/tables",tableController.getAllTables);
+// router.get("/tables/:id",tableController.getOneTable);
+router.post("/tables",tableController.createTable);
 // j'associe chaque routes à la methode du controller qui lui correspond
 //getAllLists est la requete qui va chercher toutes les listes a l'ouverture de la page
 //elle retourne un fichier json avec toutes les listes et leurs cartes et tags.

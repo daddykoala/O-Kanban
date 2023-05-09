@@ -1,6 +1,7 @@
 
 const errorHandling = require("../middlewares/errorHandling");
 const { List } = require("../models");
+
 const listController = {
     // je viens récupérer l'intégralité des listes
     async getAllLists(req, res) {

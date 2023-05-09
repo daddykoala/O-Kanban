@@ -1,15 +1,38 @@
 const errorHandling = require("../middlewares/errorHandling");
-const { User } = require("../models");
+const { User, Table } = require("../models");
+
 
 const userController = {
+
   async getAllUsers(req, res) {
     try {
-      const users = await User.findAll({ include: "tables" });
+      const users = await User.findAll({ include: "table" });
       res.json(users);
     } catch (error) {
       errorHandling.log(error);
     }
   },
+
+  async getOneUser(req, res) {
+    console.log(User);
+    try {
+      console.log(req.params.id);
+        const userId = req.params.id;
+        const user = await User.findByPk(userId, {
+            // include:[{association:"table"}],
+           
+        });
+        if (!user) {
+          
+          res.status(404).json({message:`Cant find user with id ${userId}`});
+
+        } else {
+            res.json(user);
+        }
+    } catch (error) {
+        errorHandling.log(error);
+    }
+    },
 
   async createUser(req, res) {
     try {
@@ -70,6 +93,7 @@ const userController = {
         await user.destroy();
         res.json("ok");
       }
+      
     } catch (error) {
       console.trace(error);
       res.status(500).json(error);
@@ -77,4 +101,4 @@ const userController = {
   },
 };
 
-export default userController;
+module.exports = userController;

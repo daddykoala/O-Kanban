@@ -8,13 +8,17 @@ CREATE TABLE "user" (
   "name" TEXT NOT NULL,
   "lastname" TEXT NOT NULL,
   "email" TEXT NOT NULL,
-  CONSTRAINT email_format CHECK ("email" ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$')
+  CONSTRAINT email_format CHECK ("email" ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$'),
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updated_at" TIMESTAMPTZ
 );
 
 CREATE TABLE "table" (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
-  "user_id" INTEGER REFERENCES "User"("id")
+  "user_id" INTEGER REFERENCES "user"("id"),
+  "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  "updated_at" TIMESTAMPTZ
 );
 
 CREATE TABLE "list" (
@@ -23,7 +27,7 @@ CREATE TABLE "list" (
   "position" INTEGER NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMPTZ,
-  "table_id" INTEGER REFERENCES "Table"("id") ON DELETE CASCADE
+  "table_id" INTEGER REFERENCES "table"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "card" (

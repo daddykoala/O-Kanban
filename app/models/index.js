@@ -55,4 +55,4 @@ Tag.belongsToMany(Card,{
     timestamps: false// on ne veut pas de colonne createdAt et updatedAt dans la table d'association
 });
 
-module.exports = { List, Card, Tag};
+module.exports = { List, Card, Tag, User, Table};

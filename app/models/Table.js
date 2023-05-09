@@ -1,8 +1,8 @@
 const { DataTypes, Model} = require("sequelize");
 const sequelize = require("../dbClient.js");
-class table extends Model{};
+class Table extends Model{};
 
-table.init({
+Table.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -14,8 +14,8 @@ table.init({
     },
   },{
     sequelize,
-    tableName:"table"
+    tableName:"Table"
 }
   );
 
-  module.exports = table ;
+  module.exports = Table ;

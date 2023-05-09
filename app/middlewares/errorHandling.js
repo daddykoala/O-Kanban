@@ -1,5 +1,5 @@
 const errorHandling = {
-    log(error){
+    log(error,res){
         // j'affiche l'erreur dans la console
         console.error(error);
 
