@@ -36,20 +36,26 @@ const userController = {
 
   async createUser(req, res) {
     try {
-      const { name, email } = req.body;
+      const {email ,name,lastname} = req.body;
+      console.log(email , name , lastname);  
 
       let bodyErrors = [];
       if (!name) {
         bodyErrors.push(`name can not be empty`);
       }
-      if (!email || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) {
+      if (!lastname) {
+        bodyErrors.push(`name can not be empty`);
+      }
+      
+      if (!email ) {
         bodyErrors.push(`Invalid email`);
       }
 
-      if (bodyErrors.length) {
-        res.status(400).json(bodyErrors);
-      } else {
-        let newUser = User.build({ name, email });
+      // if (bodyErrors.length) {
+      //   res.status(400).json(bodyErrors);
+      // } 
+      else {
+        let newUser = User.build({ name,lastname, email });
         await newUser.save();
         res.json(newUser);
       }
