@@ -3,7 +3,7 @@ BEGIN;
 -- Si les tables existent déjà, on les supprime
 DROP TABLE IF EXISTS "card_has_tag","tag", "card", "list", "table", "user";
 
-CREATE TABLE "user" (
+CREATE TABLE user (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
   "lastname" TEXT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE "user" (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE "table" (
+CREATE TABLE table (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
   "user_id" INTEGER REFERENCES "user"("id"),
@@ -21,7 +21,7 @@ CREATE TABLE "table" (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE "list" (
+CREATE TABLE list (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL DEFAULT 'Liste vide',
   "position" INTEGER NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE "list" (
   "table_id" INTEGER REFERENCES "table"("id") ON DELETE CASCADE
 );
 
-CREATE TABLE "card" (
+CREATE TABLE card (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL DEFAULT 'Carte vide',
   "position" INTEGER NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE "card" (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE "tag" (
+CREATE TABLE tag (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL DEFAULT 'Carte vide',
   "color" TEXT NOT NULL DEFAULT '#FFF',
@@ -48,7 +48,7 @@ CREATE TABLE "tag" (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE "card_has_tag" (
+CREATE TABLE card_has_tag (
   "card_id" INTEGER NOT NULL REFERENCES "card"("id") ON DELETE CASCADE,
   "tag_id" INTEGER NOT NULL REFERENCES "tag"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),

@@ -15,7 +15,7 @@ Table.belongsTo(User, {
 
 // Table - List association
 Table.hasMany(List, {
-  as: "lists",
+  as: "list",
   foreignKey: "table_id"
 });
 
@@ -27,7 +27,7 @@ List.belongsTo(Table, {
 
 /* ASSOCIATION 0,N */
 List.hasMany(Card,{
-    as:"cards",
+    as:"card",
     foreignKey:"list_id"
 });
 
@@ -40,7 +40,7 @@ Card.belongsTo(List,{ // on a belongsTo par rapport à la clef étrangère qui s
 
 /* ASSOCIATION N;N entre Card et Tag */
 Card.belongsToMany(Tag,{
-    as:"tags",
+    as:"tag",
     through:"card_has_tag", // trough permet de définir le nom de la table d'association
     foreignKey:"card_id", // correspond à l'id de la carte
     otherKey:"tag_id", // correspond à l'id du tag associé

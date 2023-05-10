@@ -14,7 +14,7 @@ Table.init({
     },
   },{
     sequelize,
-    tableName:"Table"
+    tableName:"table"
 }
   );
 

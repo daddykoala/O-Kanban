@@ -42,11 +42,14 @@ const listController = {
             if (!list.name) {
                 throw "Le nom de la liste doit être précisé";
             }
+            if (!list.tableId) {
+                throw "L'ID du tableau doit être précisé";
+              }
             // je calcule la position de la nouvelle liste par rapport aux listes existantes
-            const listPosition = await List.count()+1;
+            const listPosition = await List.count({where:{table_id:list.tableId}})+1;
 //List
             let newList = List.build({
-                name:list.name,position:listPosition
+                name:list.name,position:listPosition, table_id:list.tableId
             });
 
             // le .save() vient insérer en BDD notre objet, au retour, il vient mettre à jour l'id de celui-ci
@@ -128,7 +131,16 @@ const listController = {
     async deleteOneList(req,res) { 
         try{
             const listID = req.params.id;
-            const list = await List.findByPk(listID);
+            const {tableId} = req.body;
+            console.log("listID",listID);
+            console.log("tableId",tableId);
+
+            const list = await List.findOne({
+                where:{
+                    id:listID,
+                    table_id:tableId
+                }
+            });
 
             // je supprime en BDD
             await list.destroy();

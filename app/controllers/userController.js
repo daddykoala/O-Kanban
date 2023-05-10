@@ -19,7 +19,15 @@ const userController = {
       console.log(req.params.id);
         const userId = req.params.id;
         const user = await User.findByPk(userId, {
-            // include:[{association:"table"}],
+            include:[{
+              association:"table",
+              include:[{
+                association:"list",
+                include:[{
+                  association:"card",
+                  include:[{association:"tag"}]}
+                ]}]
+          }],
            
         });
         if (!user) {
