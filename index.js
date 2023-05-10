@@ -22,7 +22,7 @@ app.use(express.json());
 // on va accepter l'adresse localhost:5000
 // le module CORS est l'agent de sécurité à l'entrée de notre API, il va permettre l'accès ou non à celle-ci
 app.use(cors({
-    origin:"http://localhost:3002"
+    origin:"http://localhost:3000"
 }));
 app.use(router);
 
