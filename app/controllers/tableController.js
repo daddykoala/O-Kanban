@@ -37,6 +37,7 @@ const tableController = {
       errorHandling.log(error);
     }
   },
+
   async modifyTable(req, res) {
     try {
       const tableId = req.params.id;
@@ -65,10 +66,22 @@ const tableController = {
   async deleteTable(req, res) {
     try {
       const tableId = req.params.id;
-      let table = await Table.findByPk(tableId);
+      const user_id = req.body.user_id;
+
+      const table = await Table.findOne({
+        where:{
+            id:tableId,
+            user_id:user_id
+        }
+    });
+    if (!user_id) {
+      res.status(404).json(`Cant find table with id ${tableId}`);
+    }
+
       if (!table) {
         res.status(404).json(`Cant find table with id ${tableId}`);
-      } else {
+      }
+       else {
         await table.destroy();
         res.json('ok');
       }

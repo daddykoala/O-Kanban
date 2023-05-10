@@ -25,6 +25,7 @@ router.patch("/users/:id",userController.modifyUser);
 router.get("/tables",tableController.getAllTables);
 // router.get("/tables/:id",tableController.getOneTable);
 router.post("/tables",tableController.createTable);
+router.delete("/tables/:id",tableController.deleteTable);
 // j'associe chaque routes à la methode du controller qui lui correspond
 //getAllLists est la requete qui va chercher toutes les listes a l'ouverture de la page
 //elle retourne un fichier json avec toutes les listes et leurs cartes et tags.
