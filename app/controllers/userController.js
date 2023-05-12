@@ -14,10 +14,12 @@ const userController = {
   },
 
   async getOneUser(req, res) {
-    console.log(User);
+    // console.log(User);
     try {
+      const userId = parseInt(req.params.id);
+      console.log( typeof userId );
       console.log(req.params.id);
-        const userId = req.params.id;
+      console.log(userId);
         const user = await User.findByPk(userId, {
             include:[{
               association:"table",
@@ -35,6 +37,8 @@ const userController = {
           res.status(404).json({message:`Cant find user with id ${userId}`});
 
         } else {
+          // console.log("je renvoi bien le bouzin",user.dataValues.id);
+          
             res.json(user);
         }
     } catch (error) {

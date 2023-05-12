@@ -15,12 +15,13 @@ const tableController = {
   async createTable(req, res) {
     try {
       const { name, user_id } = req.body;
-
+console.log("requete passe ici",req.body);
       let bodyErrors = [];
       if (!name) {
         bodyErrors.push(`name can not be empty`);
       }
       if (!user_id) {
+        console.log("user_id can not be empty");
         bodyErrors.push(`user_id can not be empty`);
       }
 
@@ -71,8 +72,9 @@ const tableController = {
       const table = await Table.findOne({
         where:{
             id:tableId,
-            user_id:user_id
+            // user_id:user_id
         }
+        
     });
     if (!user_id) {
       res.status(404).json(`Cant find table with id ${tableId}`);
@@ -83,7 +85,12 @@ const tableController = {
       }
        else {
         await table.destroy();
-        res.json('ok');
+        const tables = await Table.findAll({
+          where: {
+              user_id: userId
+          }
+      });
+        res.json(tables);
       }
     } catch (error) {
       console.trace(error);
