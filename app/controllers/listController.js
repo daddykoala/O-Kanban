@@ -37,6 +37,7 @@ const listController = {
     async createList(req, res) {
 // je récupère ce qui est envoyé par la requête POST
         const list = req.body; 
+        console.log(list);
         try {
             // je vérifie que les données envoyées ont la propriété name
             if (!list.name) {

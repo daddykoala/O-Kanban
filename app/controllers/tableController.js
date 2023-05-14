@@ -67,7 +67,7 @@ console.log("requete passe ici",req.body);
   async deleteTable(req, res) {
     try {
       const tableId = req.params.id;
-      const user_id = req.body.user_id;
+      
 
       const table = await Table.findOne({
         where:{
@@ -76,21 +76,17 @@ console.log("requete passe ici",req.body);
         }
         
     });
-    if (!user_id) {
-      res.status(404).json(`Cant find table with id ${tableId}`);
-    }
+    // if (!user_id) {
+    //   res.status(404).json(`Cant find table with id ${tableId}`);
+    // }
 
       if (!table) {
         res.status(404).json(`Cant find table with id ${tableId}`);
       }
        else {
         await table.destroy();
-        const tables = await Table.findAll({
-          where: {
-              user_id: userId
-          }
-      });
-        res.json(tables);
+        
+        res.json("ok");
       }
     } catch (error) {
       console.trace(error);
