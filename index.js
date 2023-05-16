@@ -7,7 +7,8 @@ const cors = require('cors');
 const multer  = require('multer');
 const sanitizer = require("./app/middlewares/bodySanitizer");
 const router = require("./app/router");
-
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 // accepte : Content-type: application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }));
 // multer permet d'accepter des types d'envoi (place les données dans req.body)

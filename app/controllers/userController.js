@@ -17,25 +17,24 @@ const userController = {
     try {
       const { email } = req.body;
 
-      const foundUser = await User.findOne({ where: { email } });
+      const foundUser = await User.findOne({ where: { email },include:"table" });
       if(foundUser){
 
 //*création du JWT
         const accessToken = generateAccessToken(foundUser.email);
 //* création du refreshToken
       const refreshToken = generateRefreshToken(foundUser.email);
+      console.log("canevoi du cookies");
       res.cookie("jwt", refreshToken,
 			{httpOnly: true,
-				sameSite: 'None',
-				secure: true, 
+				// sameSite: 'None',
+				// secure: true, 
 				maxAge: 24 * 60 * 60 * 1000
 			 });
         res.status(200).json({user:foundUser,token:accessToken});
       }
       if (!foundUser) {
         res.status(404).json({ message: `User not found with email ${email}` });
-      } else {
-        res.json(foundUser);
       }
     } catch (error) {
       errorHandling.log(error);
