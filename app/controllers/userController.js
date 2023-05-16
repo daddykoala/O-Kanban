@@ -1,6 +1,6 @@
 const errorHandling = require("../middlewares/errorHandling");
 const { User, Table } = require("../models");
-
+const crypto = require("crypto");
 
 const userController = {
 
@@ -8,6 +8,34 @@ const userController = {
     try {
       const users = await User.findAll({ include: "table" });
       res.json(users);
+    } catch (error) {
+      errorHandling.log(error);
+    }
+  },
+  async loginUser(req, res) {
+    try {
+      const { email } = req.body;
+
+      const foundUser = await User.findOne({ where: { email } });
+      if(foundUser){
+
+//*création du JWT
+        const accessToken = generateAccessToken(foundUser.email);
+//* création du refreshToken
+      const refreshToken = generateRefreshToken(foundUser.email);
+      res.cookie("jwt", refreshToken,
+			{httpOnly: true,
+				sameSite: 'None',
+				secure: true, 
+				maxAge: 24 * 60 * 60 * 1000
+			 });
+        res.status(200).json(foundUser,accessToken);
+      }
+      if (!foundUser) {
+        res.status(404).json({ message: `User not found with email ${email}` });
+      } else {
+        res.json(foundUser);
+      }
     } catch (error) {
       errorHandling.log(error);
     }
@@ -20,6 +48,7 @@ const userController = {
       console.log( typeof userId );
       console.log(req.params.id);
       console.log(userId);
+
         const user = await User.findByPk(userId, {
             include:[{
               association:"table",

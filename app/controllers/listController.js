@@ -101,7 +101,10 @@ const listController = {
      },
     async updateById(req,res) {
         try{
+            console.log("",req.body);
             const listID = req.params.id;
+            console.log("typoeof",typeof listID,listID);
+            
 
             // je viens récupérer la liste en BDD
             const list = await List.findByPk(listID);
@@ -132,20 +135,20 @@ const listController = {
     async deleteOneList(req,res) { 
         try{
             const listID = req.params.id;
-            const {tableId} = req.body;
+         
             console.log("listID",listID);
-            console.log("tableId",tableId);
+           
 
             const list = await List.findOne({
                 where:{
                     id:listID,
-                    table_id:tableId
+                    
                 }
             });
 
             // je supprime en BDD
             await list.destroy();
-
+console.log("c'est passé");
             res.json("OK");
         }
         catch(error){

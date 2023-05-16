@@ -42,9 +42,10 @@ console.log("requete passe ici",req.body);
   async modifyTable(req, res) {
     try {
       const tableId = req.params.id;
-      const { name, user_id, position } = req.body;
-
+      const { name, user_id } = req.body;
+console.log("requete passe ici",req.body);
       let table = await Table.findByPk(tableId);
+      console.log("table",table);
       if (!table) {
         errorHandling.notFoundCustom(`Cant find table with id ${tableId}`, res);
       } else {
@@ -54,16 +55,18 @@ console.log("requete passe ici",req.body);
         if (user_id) {
           table.user_id = user_id;
         }
-        if (position) {
-          table.position = position;
-        }
-        await table.save();
-        res.json(table);
+       
+        const result= await table.save();
+        console.log("table",result);
+        res.json(result);
       }
     } catch (error) {
       errorHandling.log(error);
+      res.status(500).json(error);
     }
   },
+
+
   async deleteTable(req, res) {
     try {
       const tableId = req.params.id;
