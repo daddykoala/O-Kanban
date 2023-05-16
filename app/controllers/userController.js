@@ -1,6 +1,7 @@
 const errorHandling = require("../middlewares/errorHandling");
 const { User, Table } = require("../models");
 const crypto = require("crypto");
+const { generateAccessToken, generateRefreshToken } = require("../service/jsonWebToken");
 
 const userController = {
 
@@ -29,7 +30,7 @@ const userController = {
 				secure: true, 
 				maxAge: 24 * 60 * 60 * 1000
 			 });
-        res.status(200).json(foundUser,accessToken);
+        res.status(200).json({user:foundUser,token:accessToken});
       }
       if (!foundUser) {
         res.status(404).json({ message: `User not found with email ${email}` });

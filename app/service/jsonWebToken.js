@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { log } = require('../middlewares/errorHandling');
 
 function generateAccessToken(user) {
     //on crée le token en donnat le secret
@@ -11,6 +12,7 @@ function generateAccessToken(user) {
 
 function generateRefreshToken(user) {
     //on crée le token en donnant le secret 
+    console.log(process.env.REFRESH_TOKEN_SECRET);
     return jwt.sign({user: user}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: `1d`});
 }
 

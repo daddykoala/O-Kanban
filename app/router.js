@@ -17,6 +17,7 @@ const errorHandling = require("./middlewares/errorHandling");
 // pour trouver un utilisateur, on va utiliser son id
 router.get("/users/:id",userController.getOneUser);
 router.get("/users",userController.getAllUsers);
+router.post("/users/findByEmail/",userController.loginUser);
 router.post("/users/create",userController.createUser);
 router.patch("/users/:id",userController.modifyUser);
 
