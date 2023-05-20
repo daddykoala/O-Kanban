@@ -135,6 +135,7 @@ const listController = {
     async deleteOneList(req,res) { 
         try{
             const listID = req.params.id;
+            const tableId = req.body.tableId;
          
             console.log("listID",listID);
            
@@ -142,17 +143,30 @@ const listController = {
             const list = await List.findOne({
                 where:{
                     id:listID,
-                    
                 }
             });
+            if (!list) {
+                throw "Impossible de supprimer la liste avec cet id";
+            }
+            if (list === undefined) {
+                res.json("id cloche");
+            }
 
             // je supprime en BDD
             await list.destroy();
 console.log("c'est passé");
-            res.json("OK");
+            // je viens récupérer les listes du tableau
+            const result = await List.findAll({
+                where:{
+                    table_id:tableId
+                },
+            });
+
+            res.json(result);
         }
         catch(error){
             errorHandling.log(error);
+            res.json("id cloche");
         }
     }
 };
