@@ -43,7 +43,7 @@ console.log("requete passe ici",req.body);
     try {
       const tableId = req.params.id;
       const { name, user_id } = req.body;
-console.log("requete passe ici",req.body);
+console.log("requete passe ici",name);
       let table = await Table.findByPk(tableId);
       console.log("table",table);
       if (!table) {
@@ -57,7 +57,7 @@ console.log("requete passe ici",req.body);
         }
        
         const result= await table.save();
-        console.log("table",result);
+        console.log("table",result.dataValues);
         res.json(result);
       }
     } catch (error) {

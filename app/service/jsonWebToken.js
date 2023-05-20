@@ -17,16 +17,17 @@ function generateRefreshToken(user) {
 
 function authenticateToken(req, res, next) {
     //on recupere notre token dans le headers de la requete
-    console.log(req.headers);
+  
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    //si le token n'existe pas on renvoi une erreur
-    if (!token) {
+    const accesToken = authHeader && authHeader.split(' ')[1];
+    
+    //si le accesToken n'existe pas on renvoi une erreur
+    if (!accesToken) {
         console.log("pas si vite garcon");
         return res.sendStatus(401);
     }
-    //on verifie la veracité du token avec le secret.
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    //on verifie la veracité du accesToken avec le secret.
+    jwt.verify(accesToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             return res.sendStatus(403,err)//403 c'est forbidden;
         }  

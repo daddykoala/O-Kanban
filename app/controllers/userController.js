@@ -76,10 +76,10 @@ const userController = {
     },
 
   async createUser(req, res) {
-    console.log("je suis dans le controller");
+    
     try {
       const {email ,name,lastname} = req.body;
-      console.log(email , name , lastname);  
+       
 
       let bodyErrors = [];
       if (!name) {
