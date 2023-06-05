@@ -41,7 +41,7 @@ const cardController = {
     async createCard(req, res) {
         try {
             const { name, color, list_id } = req.body;
-
+console.log("req.body",req.body);
             let bodyErrors = [];
             if (!name) {
                 bodyErrors.push(`name can not be empty`);
@@ -60,7 +60,9 @@ const cardController = {
                 if (color) {
                     newCard.color = color;
                 }
+                ;
                 await newCard.save();
+                console.log("je suis arrive ici aussi",newCard);
                 res.json(newCard);
             }
 

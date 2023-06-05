@@ -161,7 +161,7 @@ console.log("c'est passé");
                     table_id:tableId
                 },
             });
-
+console.log(result);
             res.json(result);
         }
         catch(error){

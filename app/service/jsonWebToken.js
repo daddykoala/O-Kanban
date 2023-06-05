@@ -12,7 +12,7 @@ function generateAccessToken(user) {
 function generateRefreshToken(user) {
     //on crée le token en donnant le secret 
     
-    return jwt.sign({user: user}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: `1d`});
+    return jwt.sign({user: user}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: `10m`});
 }
 
 function authenticateToken(req, res, next) {
@@ -29,7 +29,7 @@ function authenticateToken(req, res, next) {
     //on verifie la veracité du accesToken avec le secret.
     jwt.verify(accesToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
-            return res.sendStatus(403,err)//403 c'est forbidden;
+            return res.sendStatus(403,err)//403 c'est forbidden;cd a
         }  
         console.log("ok tu passes");  
         req.user = user;
