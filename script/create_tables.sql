@@ -16,7 +16,7 @@ CREATE TABLE consumers (
 CREATE TABLE deck (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
-  "user_id" INTEGER REFERENCES "user"("id"),
+  "consumers_id" INTEGER REFERENCES "consumers"("id"),
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMPTZ
 );
