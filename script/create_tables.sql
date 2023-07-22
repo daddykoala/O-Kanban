@@ -21,7 +21,7 @@ CREATE TABLE deck (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE list (
+CREATE TABLE list (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL DEFAULT 'Liste vide',
   "position" INTEGER NOT NULL,
