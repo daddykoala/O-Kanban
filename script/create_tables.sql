@@ -1,9 +1,9 @@
 BEGIN;
 
 -- Si les tables existent déjà, on les supprime
-DROP TABLE IF EXISTS "card_has_tag","tag", "card", "list", "deck", "users";
+DROP TABLE IF EXISTS "card_has_tag","tag", "card", "list", "deck", "consumers";
 
-CREATE TABLE users (
+CREATE TABLE consumers (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
   "lastname" TEXT NOT NULL,
