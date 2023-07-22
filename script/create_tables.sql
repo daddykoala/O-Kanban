@@ -1,9 +1,9 @@
 BEGIN;
 
 -- Si les tables existent déjà, on les supprime
-DROP TABLE IF EXISTS "card_has_tag","tag", "card", "list", "table", "user";
+DROP TABLE IF EXISTS "card_has_tag","tag", "card", "list", "deck", "users";
 
-CREATE TABLE user (
+CREATE TABLE users (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
   "lastname" TEXT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE user (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE table (
+CREATE TABLE deck (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
   "user_id" INTEGER REFERENCES "user"("id"),
