@@ -1,21 +1,21 @@
 BEGIN;
 
 -- Ajout de trois faux utilisateurs
-INSERT INTO "user" ("name","lastname", "email")
+INSERT INTO "consumers" ("name","lastname", "email")
 VALUES
 ("John","doe", "john.doe@example.com"),
 ("Jane","smith", "jane.smith@example.com"),
 ("Bob ","smiteidh", "bob.johnson@example.com");
 
 -- Ajout d'un tableau pour chaque utilisateur
-INSERT INTO "table" ("name", "user_id")
+INSERT INTO "deck" ("name", "consumers_id")
 VALUES
 ("Tableau 1", 1),
 ("Tableau 2", 2),
 ("Tableau 3", 3);
 
 -- Ajout de deux listes pour chaque tableau
-INSERT INTO "list" ("name", "position", "table_id")
+INSERT INTO "list" ("name", "position", "deck_id")
 VALUES
 ("Liste 1", 1, 1),
 ("Liste 2", 2, 1),
