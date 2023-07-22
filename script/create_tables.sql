@@ -21,13 +21,13 @@ CREATE TABLE deck (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE list (
+CREATE deck list (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL DEFAULT 'Liste vide',
   "position" INTEGER NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMPTZ,
-  "table_id" INTEGER REFERENCES "table"("id") ON DELETE CASCADE
+  "deck_id" INTEGER REFERENCES "deck"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE card (
