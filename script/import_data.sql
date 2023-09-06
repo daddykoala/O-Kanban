@@ -1,20 +1,19 @@
 BEGIN;
 
--- Ajout de trois faux utilisateurs
+
 INSERT INTO "user" ("name","lastname", "email")
 VALUES
 ("John","doe", "john.doe@example.com"),
 ("Jane","smith", "jane.smith@example.com"),
 ("Bob ","smiteidh", "bob.johnson@example.com");
 
--- Ajout d'un tableau pour chaque utilisateur
 INSERT INTO "table" ("name", "user_id")
 VALUES
 ("Tableau 1", 1),
 ("Tableau 2", 2),
 ("Tableau 3", 3);
 
--- Ajout de deux listes pour chaque tableau
+
 INSERT INTO "list" ("name", "position", "table_id")
 VALUES
 ("Liste 1", 1, 1),
@@ -24,7 +23,7 @@ VALUES
 ("Liste 5", 5, 3),
 ("Liste 6", 6, 3);
 
--- Ajout de six cartes pour chaque liste
+
 INSERT INTO "card" ("name", "position", "color", "list_id")
 VALUES
 ("Carte 1", 1, "#F00", 1),
@@ -40,7 +39,7 @@ VALUES
 ("Carte 11", 11, "#00F", 5),
 ("Carte 12", 12, "#F0F", 6);
 
--- Ajout de quelques tags pour chaque carte
+
 INSERT INTO "tag" ("name", "color")
 VALUES
 ("Urgent", "#F00"),
@@ -49,7 +48,7 @@ VALUES
 ("En cours", "#00F"),
 ("Terminé", "#F0F");
 
--- Ajout des relations entre les cartes et les tags
+
 INSERT INTO "card_has_tag" ("card_id", "tag_id")
 VALUES
 (1, 1),
