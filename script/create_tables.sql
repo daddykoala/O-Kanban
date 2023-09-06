@@ -1,9 +1,9 @@
 BEGIN;
 
-
+-- Si les tables existent déjà, on les supprime
 DROP TABLE IF EXISTS "card_has_tag","tag", "card", "list", "table", "user";
 
-CREATE TABLE "user" (
+CREATE TABLE user (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
   "lastname" TEXT NOT NULL,
@@ -13,10 +13,10 @@ CREATE TABLE "user" (
   "updated_at" TIMESTAMPTZ
 );
 
-CREATE TABLE "table" (
+CREATE TABLE table (
   "id" SERIAL PRIMARY KEY,
   "name" TEXT NOT NULL,
-  "user_id" INTEGER REFERENCES "user"("id"),
+  "consumers_id" INTEGER REFERENCES "consumers"("id"),
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMPTZ
 );
@@ -27,7 +27,7 @@ CREATE TABLE "list" (
   "position" INTEGER NOT NULL,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMPTZ,
-  "table_id" INTEGER REFERENCES "table"("id") ON DELETE CASCADE
+  "deck_id" INTEGER REFERENCES "deck"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "card" (
